@@ -1,0 +1,22 @@
+install.packages("UniprotR")
+library(UniprotR)
+library(ggplot2)  
+
+UniprotID_list <- c("P27348","P98175","Q15750")
+
+Go1 <- GetProteinGOInfo(UniprotID_list)
+
+Custom_palette <- c( "#992D80", "#A0DA39", "#22A884")
+
+PlotGOAll(Go1, Top = 5) +
+  theme(text = element_text(family = "Times", size = 20))+
+  scale_fill_manual(values = custom_palette)
+
+plot1 <- PlotGOAll(Go1, Top = 5) +
+  theme(text = element_text(family = "Times", size = 20))+
+  scale_fill_manual(values = custom_palette)
+
+# Save graphic in .svg format
+svg("go_plotAllconditionsMS.svg", width = 10)
+print(plot1)
+dev.off()
